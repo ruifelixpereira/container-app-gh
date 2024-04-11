@@ -32,3 +32,4 @@ jobs:
           acrName: rfpacr01
           containerAppName: my-container-app
           resourceGroup: aca-rg-01
+          location: westeurope
