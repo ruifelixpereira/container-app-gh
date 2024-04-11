@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Variables
 appName="aca-gh-actions-lab"
 
