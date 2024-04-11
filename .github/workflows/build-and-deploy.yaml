@@ -31,4 +31,4 @@ jobs:
           appSourcePath: ${{ github.workspace }}/src
           acrName: rfpacr
           containerAppName: my-container-app
-          resourceGroup: my-rg
+          #resourceGroup: my-rg
