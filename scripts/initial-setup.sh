@@ -2,9 +2,8 @@
 
 # Variables
 location="westeurope"
-resourceGroup="aca-rg-01"
-acrName="rfpacr01"
-appName="aca-gh-actions-01"
+resourceGroup="aca-rg-02"
+appName="aca-gh-actions-02"
 
 # Get the subscription ID
 subscriptionId=$(az account show --query id -o tsv)
@@ -29,16 +28,5 @@ if [ "$sp_query" == "[]" ]; then
     az ad sp create-for-rbac --name $appName --role contributor --scopes /subscriptions/${subscriptionId}/resourceGroups/${resourceGroup} --json-auth > auth.json
 else
     echo "Service principal $appName already exists."
-fi
-
-#
-# Create/Get a container registry
-#
-cr_query=$(az acr list --query "[?name=='$acrName']")
-if [ "$cr_query" == "[]" ]; then
-    echo -e "\nCreating container registry '$acrName'"
-    az acr create -n $acrName -g $resourceGroup --sku Basic
-else
-    echo "Container registry $acrName already exists."
 fi
 

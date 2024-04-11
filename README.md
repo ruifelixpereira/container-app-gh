@@ -54,19 +54,40 @@ The following script creates a new Service Principal, a new Resource Group and a
 You can edit the variables inside the script to customize the names of the resources being created.
 
 ```bash
-./scripts/create-infra.sh
+scripts/initial-setup.sh
 ```
 
 This command will output a file `auth.json` with the service principal credentials that will be used later for the Github Secrets.
 
 **Create the GitHub repository**
 
-Create the repository first.
+Example:
 
 ![alt text](assets/repo.png)
 
-In the GitHub repository, go to Settings > Security > Secrets and create a new secret with the name `AZURE_CREDENTIALS` and the content of the `auth.json` file.
+**Create environment secrets and variables used by GitHub Actions**
 
-![alt text](assets/creds.png)
+In the GitHub repository, go to "Settings > Code and automation > Environments" and create a new environment with the name `azure`.
 
-Commit and push everything to the new respository. Push will trigger the action build-and-push.yaml that will build and push the container image to ghcr.io as well as deploy a new container App to Azure.
+![alt text](assets/env.png)
+
+Under this environment, add a new secret with the name `AZURE_CREDENTIALS` and the content of the `auth.json` file.
+
+![alt text](assets/secret.png)
+
+And create the following variables:
+
+- *RESOURCE_GROUP*: the resource group name where the container app will be deployed (e.g., aca-rg-02)
+- *LOCATION*: the Azure region where the resources will be deployed (e.g., westeurope)
+- *CONTAINER_REGISTRY_NAME*: the name of the Azure Container registry to be created/used to store container images (.e.g., rfpacr02)
+- *CONTAINER_APP_NAME*: the name of the container app to be deployed (e.g., aca-gh-actions-02)
+
+Example:
+
+![alt text](assets/vars.png)
+
+**Commit and push everything...***
+
+Finally, commit and push everything to the new repository. Push will trigger 2 actions:
+- `build-and-push.yaml` that will build and push the container image to `ghcr.io`
+- `build-and-deploy.yaml` that will deploy a new container App to Azure
