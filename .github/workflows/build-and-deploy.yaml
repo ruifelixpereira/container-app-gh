@@ -37,4 +37,4 @@ jobs:
           containerAppName: ${{ vars.CONTAINER_APP_NAME }}
           resourceGroup: ${{ vars.RESOURCE_GROUP }}
           location: ${{ vars.LOCATION }}
-          targetPort: 8080 --registry-server ${{ vars.CONTAINER_REGISTRY_NAME }}.azureacr.io
+          targetPort: 8080

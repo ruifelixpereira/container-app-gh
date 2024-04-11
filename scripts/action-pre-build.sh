@@ -51,3 +51,20 @@ if [ "$cr_query" == "[]" ]; then
 else
     echo "Container registry $acrName already exists."
 fi
+
+#
+# Make sure the service principal can pull images from ACR
+#
+SERVICE_PRINCIPAL_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq -r .clientId)
+
+echo "Service principal: ${SERVICE_PRINCIPAL_ID}"
+
+# Populate value required for subsequent command args
+ACR_REGISTRY_ID=$(az acr show --name $acrName --query id --output tsv)
+
+# Assign the desired role to the service principal. Modify the '--role' argument
+# value as desired:
+# acrpull:     pull only
+# acrpush:     push and pull
+# owner:       push, pull, and assign roles
+az role assignment create --assignee $SERVICE_PRINCIPAL_ID --scope $ACR_REGISTRY_ID --role acrpull
