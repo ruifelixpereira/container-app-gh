@@ -27,14 +27,23 @@ jobs:
 
       - name: Ensure required Azure resouces
         run: ${{ github.workspace }}/scripts/action-pre-build.sh -r ${{ vars.RESOURCE_GROUP }} -c ${{ vars.CONTAINER_REGISTRY_NAME }}
+
+      - name: Collect Client credentials for Container Registry
+        run: |
+          REGISTRY_USERNAME=$(echo $AZURE_CREDENTIALS | jq -r '.["clientId"]')
+          REGISTRY_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -r '.["clientSecret"]')
+          echo "::add-mask::$REGISTRY_USERNAME"
+          echo "::add-mask::$REGISTRY_PASSWORD"
+          echo REGISTRY_USERNAME=$REGISTRY_USERNAME >> $GITHUB_ENV
+          echo REGISTRY_PASSWORD=$REGISTRY_PASSWORD >> $GITHUB_ENV
     
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}/src
-          acrName: Teste${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io
-          acrUsername: Teste${{ toJSON(secrets.AZURE_CREDENTIALS).clientId }}
-          acrPassword: Teste${{ toJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
+          acrName: ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io
+          acrUsername: ${{ env.REGISTRY_USERNAME }}
+          acrPassword: ${{ env.REGISTRY_PASSWORD }}
           containerAppName: ${{ vars.CONTAINER_APP_NAME }}
           resourceGroup: ${{ vars.RESOURCE_GROUP }}
           location: ${{ vars.LOCATION }}
