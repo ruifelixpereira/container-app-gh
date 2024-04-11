@@ -1,4 +1,4 @@
-# Sample Container Appscenario
+# Sample Container App scenario
 
 Azure Container App to run a simple HTTP nodejs app and using Github Actions to deploy revision into ACA.
 
@@ -42,4 +42,24 @@ curl -X GET -H "Content-Type: application/json" http://localhost:8080/albums
 
 Create a GitHub repository, commit and push everyhting to it.
 
-Sample:
+The push will trigger the action build-and-osuh.yaml that will build ans push the container image to ghcr.io:
+
+![alt text](image.png)
+
+Create a new service principal on Azure that will be used by GitHub Actions to deploy new Container Apps:
+
+```bash
+./scripts/create-sp.sh
+```
+
+This command will output a file `auth.json` with the service principal credentials that will be used later on in the Github Secrets.
+
+Create a secret with your Azure crdentials.
+
+In the GitHub repository, go to Settings > Security > Secrets and create a new secret with the name `AZURE_CREDENTIALS` and the content of the `auth.json` file.
+
+![alt text](image-1.png)
+
+
+## Create infrastructure
+

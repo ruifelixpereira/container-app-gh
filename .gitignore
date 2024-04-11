@@ -347,3 +347,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# My stuff
+MYLOG.md
+auth.json
