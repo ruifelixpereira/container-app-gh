@@ -32,9 +32,9 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}/src
-          registryUrl: ${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io
-          registryUsername : ${{ toJSON(secrets.AZURE_CREDENTIALS).clientId }}
-          registryPassword : ${{ toJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
+          acrName: Teste${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io
+          acrUsername: Teste${{ toJSON(secrets.AZURE_CREDENTIALS).clientId }}
+          acrPassword: Teste${{ toJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
           containerAppName: ${{ vars.CONTAINER_APP_NAME }}
           resourceGroup: ${{ vars.RESOURCE_GROUP }}
           location: ${{ vars.LOCATION }}
