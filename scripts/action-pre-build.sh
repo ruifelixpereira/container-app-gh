@@ -55,7 +55,7 @@ fi
 #
 # Make sure the service principal can pull images from ACR
 #
-SERVICE_PRINCIPAL_ID=$(cat ${AZURE_CREDENTIALS} | jq -r .clientId)
+SERVICE_PRINCIPAL_ID=$(echo ${AZURE_CREDENTIALS} | jq -r .clientId)
 
 echo "Service principal: ${SERVICE_PRINCIPAL_ID}"
 
