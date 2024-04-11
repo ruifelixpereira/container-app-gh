@@ -33,7 +33,8 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}/src
           acrName: ${{ vars.CONTAINER_REGISTRY_NAME }}
+          acrUsername: ${{ toJSON(secrets.AZURE_CREDENTIALS).clientId }}
+          acrPassword: ${{ toJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
           containerAppName: ${{ vars.CONTAINER_APP_NAME }}
           resourceGroup: ${{ vars.RESOURCE_GROUP }}
           location: ${{ vars.LOCATION }}
-          targetPort: 8080

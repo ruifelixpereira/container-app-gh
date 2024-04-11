@@ -3,7 +3,7 @@
 # Variables
 location="westeurope"
 resourceGroup="aca-rg-02"
-appName="aca-gh-actions-02"
+appName="aca-gh-actions-022"
 
 # Get the subscription ID
 subscriptionId=$(az account show --query id -o tsv)
@@ -25,7 +25,8 @@ fi
 sp_query=$(az ad sp list --filter "displayname eq '$appName'")
 if [ "$sp_query" == "[]" ]; then
     echo -e "\nCreating Service principal '$appName'"
-    az ad sp create-for-rbac --name $appName --role contributor --scopes /subscriptions/${subscriptionId}/resourceGroups/${resourceGroup} --json-auth > auth.json
+    #az ad sp create-for-rbac --name $appName --role contributor --scopes /subscriptions/${subscriptionId}/resourceGroups/${resourceGroup} --json-auth > auth.json
+    az ad sp create-for-rbac --name $appName --role owner --scopes /subscriptions/${subscriptionId}/resourceGroups/${resourceGroup} --json-auth > auth.json
 else
     echo "Service principal $appName already exists."
 fi
