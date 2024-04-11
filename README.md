@@ -44,33 +44,30 @@ Bfore you will be able to run GitHub Actions to deploy Container Apps you needs 
 - A GitHub repository with the source code of your app
 - An Azure service principal and the credentials for authentication with Azure
 - A secret in the GitHub repository to store the Azure service principal credentials
+- An Azure Resource Group where to deploy Container Apps
 - An Azure Container Registry to store the container images of the Container Apps
 
-1. Create a GitHub repository, commit and push everyhting to it.
+1. Create Azure infra resources
+
+The following script creates a new Service Principal, a new Resource Group and a Container Registry for container images. The new Resource Group will be used to deploy the Container Registry resources as well as the Container Apps.
+
+You can edit the variables inside the script to customize the names of the resources being created.
+
+```bash
+./scripts/create-infra.sh
+```
+
+This command will output a file `auth.json` with the service principal credentials that will be used later for the Github Secrets.
+
+2. Create a GitHub repository, commit and push everyhting to it.
 
 The push will trigger the action build-and-osuh.yaml that will build ans push the container image to ghcr.io:
 
 ![alt text](image.png)
-
-2. Create a new service principal on Azure that will be used by GitHub Actions to deploy new Container Apps:
-
-```bash
-./scripts/create-sp.sh
-```
-
-This command will output a file `auth.json` with the service principal credentials that will be used later on in the Github Secrets.
 
 3. Create a secret with your Azure crdentials
 
 In the GitHub repository, go to Settings > Security > Secrets and create a new secret with the name `AZURE_CREDENTIALS` and the content of the `auth.json` file.
 
 ![alt text](image-1.png)
-
-4. Create a new Azure Container Registry to store the container images of the Container Apps
-
-```bash
-./scripts/create-acr.sh
-```
-
-## Create infrastructure
 

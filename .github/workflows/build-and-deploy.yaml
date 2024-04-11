@@ -29,6 +29,6 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}/src
-          acrName: rfpacr
+          acrName: rfpacr01
           containerAppName: my-container-app
-          #resourceGroup: my-rg
+          resourceGroup: aca-rg-01
