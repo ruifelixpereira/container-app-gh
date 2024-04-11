@@ -81,10 +81,13 @@ And create the following variables:
 - *LOCATION*: the Azure region where the resources will be deployed (e.g., westeurope)
 - *CONTAINER_REGISTRY_NAME*: the name of the Azure Container registry to be created/used to store container images (.e.g., rfpacr02)
 - *CONTAINER_APP_NAME*: the name of the container app to be deployed (e.g., aca-gh-actions-02)
+- *TARGET_PORT*: the port where the container app will be listening (e.g., 8080)
+
 
 Example:
 
 ![alt text](assets/vars.png)
+![alt text](image.png)
 
 **Commit and push everything...***
 

@@ -47,3 +47,4 @@ jobs:
           containerAppName: ${{ vars.CONTAINER_APP_NAME }}
           resourceGroup: ${{ vars.RESOURCE_GROUP }}
           location: ${{ vars.LOCATION }}
+          targetPort: ${{ vars.TARGET_PORT }}
