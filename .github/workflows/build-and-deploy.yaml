@@ -27,10 +27,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Ensure required Azure resouces
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          scriptPath: ${{ github.workspace }}/scripts/action-pre-build.sh -r ${{ vars.RESOURCE_GROUP }} -c ${{ vars.CONTAINER_REGISTRY_NAME }}
+        run: ${{ github.workspace }}/scripts/action-pre-build.sh -r ${{ vars.RESOURCE_GROUP }} -c ${{ vars.CONTAINER_REGISTRY_NAME }}
     
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v1
